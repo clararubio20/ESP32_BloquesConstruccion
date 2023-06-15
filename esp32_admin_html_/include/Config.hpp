@@ -8,7 +8,13 @@
 
 /* RESETEO DE VALORES */
 void configReset(){
-    
+    /* CLIENTE */
+    strcpy(id,"id");
+    strcpy(ssid,"nombre");
+    strcpy(pw,"contraseña");
+    /* AP */
+    strlcpy(nameap, deviceID().c_str(), sizeof(nameap));
+    strlcpy(passwordap, "contraseñaAP", sizeof(passwordap));
 }
 
 /* LECTURA DE VALORES */
