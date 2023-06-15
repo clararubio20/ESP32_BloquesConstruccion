@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ESP32 | Admin</title>
+    <!-- Favicon icon icono que sale en la web-->
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <!-- Bootstrap, estilos y comportamientos -->
+    <link href="bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
+    <link href="styles.css" rel="stylesheet" media="screen">
+    <link href="sweetalert2.min.css" rel="stylesheet" media="screen">
+    <script src="modernizr.min.js"></script>
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:wght@400;600;700&family=Prompt:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabecera de la página -->
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="/">ESP32 Admin Panel</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Admin <i class="caret"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" href="https://www.google.com/">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <!-- Menú de páginas -->
+            <div class="span3" id="sidebar">
+                <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                    <li class="active"><a href="/"><i class="icon-chevron-right"></i><i class="icon-home pull-left"></i> Panel de control</a></li>
+                    <li class=""><a href="configwifi"><i class="icon-chevron-right"></i><i class="icon-signal pull-left"></i> Wifi</a></li>
+                    <li class=""><a href="#" onclick="restablecer()"><i class="icon-arrow-down pull-left"></i><i class="icon-chevron-right"></i> Restablecer</a></li>
+                </ul>
+            </div>
+            <!-- Cuerpo -->
+            <div class="span9" id="content">
+                <!-- Información página actual -->
+                <div class="row-fluid">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <ul class="breadcrumb">
+                                <i class="icon-chevron-left hide-sidebar"><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
+                                <i class="icon-chevron-right show-sidebar" style="display:none;"><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
+                                <li><a href="/">Panel de control</a> <span class="divider">/</span></li>
+                                <li><span class="label label-info"> Panel</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sección información -->
+                <div class="row-fluid">
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header"><div class="muted pull-left">Información</div></div>
+                        <div  style="display: flex; margin: 2em; align-items: center; justify-content: center;">
+                            <img style="margin-right: 2em;" src="https://pbs.twimg.com/media/FyVaOeGX0AA-I_3?format=png&name=240x240">
+                            <div>
+                                <p class="letraAzul">¡Bienvenid@!</p>
+                                <p style="margin-top: 2em;">
+                                    ¡Esta es la página de control de tu casa domótica! Con ella podrás controlar los diferentes actuadores
+                                    de tus habitaciones e investigar sobre el consumo de energía de tus componentes. 
+                                    Navega por las diferentes secciones de la página y pulsa los bloques para averiguar
+                                    que puedes hacer con cada una de ellas. ¡Si tienes alguna duda no olvides contactar con tus profesores!
+                                     Y ahora ... ¡A CONSTRUIR!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bloque información variables -->
+                <div class="informacion">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none;" onclick="legoVariables()"><img src="https://pbs.twimg.com/media/FyVgh43WYAA-2_K?format=webp&name=tiny"></button>
+                        <p class="desactivado" id="infoVariables">
+                            A continuación se presentan unos datos muy importantes de nuestro microcontrolador: <br>
+                            - WiFi: nos enseña la cantidad de señal WiFi que llega a nuestro micro. ¡Si es muy baja la página irá más lenta! <br>
+                            - Flash y RAM libres: son dos tipos de memoria muy importantes y deben tener espacio libre para
+                            que la aplicación funcione mejor y más rápido. Investiga sobre el tema pulsando 
+                            <a  style="font-weight: 600; color: #0ad9ec;" href="https://recoverit.wondershare.es/flashdrive-recovery/what-is-flash-memory.html">AQUÍ</a>. <br>
+                            - Temperatura de la CPU: en la CPU se llevan a cabo todos los procesos necesarios para que la aplicación funcione y para ello puede tener
+                            una temperatura muy elevada. Comprueba que este valor no sea excesivamente alto o se caliente rapidamente. Si esto ocurriese, asegúrate de
+                            que el micro tiene buena ventalización y desenchúfalo si fuese necesario.
+                        </p>
+                    </div>
+                </div>
+                <!-- Sección variables -->
+                <div class="row-fluid">
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Variables</div>
+                            <div class="pull-right"><span class="badge badge-warning">Nombre - #id# / Serie - #serie# </span></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <div class="span3">
+                                <div class="chart" id="chartWiFi" data-percent="#SWFI#"><span id="WiFiChart">#SWFI# %</span></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">WIFI</span></div>
+                            </div>
+                            <div class="span3">
+                                <div class="chart" id="chartPMEM" data-percent="#PMEM#"><span id="PMEMChart">#PMEM# %</span></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">FLASH Free</span></div>
+                            </div>
+                            <div class="span3">
+                                <div class="chart" id="chartram" data-percent="#ram#"><span id="ramChart">#ram# %</span></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">RAM Free</span></div>
+                            </div>
+                            <div class="span3">
+                                <div class="chart" id="chartcpu" data-percent="#cpu#"><span id="cpuChart">#cpu# °C</span></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">TEMP CPU</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bloque información red WiFi -->
+                <div class="informacionPeque">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none; margin-right: 2em;" onclick="legoRedWifi()"><img src="https://pbs.twimg.com/media/FyVbzOyWYAEzWwu?format=png&name=120x120"></button>
+                        <p class="desactivado" id="infoRedWifi">
+                            Comprueba que el micro esté conectado tu red en la siguiente sección. <br> El estado debe aparecer conectado y en la red 
+                            debe salir el nombre de tu WiFi. La dirección IP es clave por ser un identificador único para cada señal WiFi. <br>
+                            Comprueba, como en la sección anterior, que la señal y la RSSI (fuerza de la señal recibida) sean suficientes o irá más lenta la página.
+                        </p>
+                    </div>
+                </div>
+                <!-- Bloque información configuración habitaciones -->
+                <div class="informacionPeque">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none; margin-right: 2em;" onclick="legoConfigHab()"><img src="https://pbs.twimg.com/media/FyVbzOyWYAEzWwu?format=png&name=120x120"></button>
+                        <p class="desactivado" id="infoConfigHab">
+                            Configura los diferentes parámetros de las habitaciones. Esto causará efecto en el
+                            funcionamiento del modo inteligente: <br>
+                            - Elige la luz adecuada: si los sensores de luz detectan menos luz de la que elijas,
+                            la habitación funcionará como si la luz natural no fuese "suficiente". <br>
+                            Cuando hayas elegido los valores, ¡pulsa Configurar!
+                        </p>
+                    </div>
+                </div>
+                <!-- Secciones conjuntas 1 -->
+                <div class="row-fluid">
+                    <!-- Sección red WiFi -->
+                    <div class="span6">
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header"><div class="muted pull-left"><i class="icon-signal"></i> RED WIFI</div></div>
+                            <div class="block-content collapse in">
+                                <div><span class="label label-info">Estado:</span> <span id="WFEstatus">#WFEstatus#</span></div>
+                                <div><span class="label label-info">Red:</span> <span>#WFSSID#</span></div>
+                                <div><span class="label label-info">IP:</span> <span>#sysIP#</span></div>
+                                <div><span class="label label-info">RSSI:</span> <span id="WFDBM">#WFDBM# dBm</span></div>
+                                <div><span class="label label-info">Señal:</span> <span id="WFPRC">#WFPRC# %</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sección configuración habitaciones -->
+                    <div class="span6">
+                        <div class="block" style="text-align: center;">
+                            <div class="navbar navbar-inner block-header"><div class="muted pull-left"><i class="icon-cog"></i> CONFIGURACIÓN HABITACIONES</div></div>
+                            <div>
+                                <div style="display: inline-block; text-align: center; margin: 1em;">
+                                    <p>DORMITORIO</p>
+                                    <p>Nivel actual: <span id="valorActDorm">#valorActDorm# %</span></p>
+                                    <div class="box">
+                                        <div class="slider"><input id="rangoDorm" type="range" min="0" max="100" value="50"></div>
+                                        <div id="valueDorm" class="value">#valueDorm#</div>
+                                    </div>
+                                </div>
+                                <div style="display: inline-block; text-align: center; margin: 1em;">
+                                    <p>HABITACIÓN</p>
+                                    <p>Nivel actual: <span id="valorActHab">#valorActHab# %</span></p>
+                                    <div class="box">
+                                        <div class="slider"><input id="rangoHab" type="range" min="0" max="100" value="50"></div>
+                                        <div id="valueHab" class="value">#valueHab#</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button style="margin-bottom: 1em;" type="button" class="btn btn-info" onclick="configData()">Configurar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bloque información actuadores -->
+                <div class="informacionPeque" >
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none; margin-right: 2em;" onclick="legoActuadores()"><img src="https://pbs.twimg.com/media/FyVbzOyWYAEzWwu?format=png&name=120x120"></button>
+                        <p class="desactivado" id="infoActuadores">
+                            Aquí podrás ver el estado de cada tipo de acturador: <br>
+                            - LEDs: si están apagados las bombillas serán negras. Si, por el contrario, están encendidas las bombillas
+                            se "iluminarán".
+                        </p>
+                    </div>
+                </div>
+                <!-- Bloque información sensores -->
+                <div class="informacionPeque">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none; margin-right: 2em;" onclick="legoSensores()"><img src="https://pbs.twimg.com/media/FyVbzOyWYAEzWwu?format=png&name=120x120"></button>
+                        <p class="desactivado" id="infoSensores">
+                            Observa los valores que reciben cada uno de los sensores e interactúa con la casa para ver el cambio: <br>
+                            - Sensor de luz: prueba cubriéndolo del todo o iluminándolo de cerca con una linterna para ver como cambia. <br>
+                            - Sensores de presencia: acerca la mano a los sensores y, ¡mira como se enciende!
+                        </p>
+                    </div>
+                </div>
+                <!-- Secciones conjuntas 2 -->
+                <div class="row-fluid">
+                    <!-- Sección actuadores -->
+                    <div class="span6">
+                        <div class="block" style="text-align: center;">
+                            <div class="navbar navbar-inner block-header"><div class="muted pull-left"><i class="icon-question-sign"></i> ESTADO ACTUADORES</div></div>
+                            <div style="display: inline-block; text-align: center; margin-top:1em; ">
+                                <p>LED DORMITORIO</p>
+                                <div class="bulb"><i id="light" class="fas fa-lightbulb"></i></div>
+                            </div>
+                            <div style="display: inline-block; text-align: center;margin:1em;">
+                                <p>LED HABITACIÓN</p>
+                                <div class="bulb"><i id="light2" class="fas fa-lightbulb"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sección sensores -->
+                    <div class="span6">
+                        <div class="block" style="text-align: center;">
+                            <div class="navbar navbar-inner block-header"><div class="muted pull-left"><i class="icon-info-sign"></i> INFORMACIÓN SENSORES</div></div>
+                            <div style="display:inline-block; margin: 1em; text-align: center;">
+                                <div>DORMITORIO</div>
+                                <div  style="display:block; margin: 1em;">
+                                    <div class="chart" id="chartluzDorm" data-percent="#luzDorm#"><span id="luzDormchart">#luzDorm#</span></div>
+                                    <div class="chart-bottom-heading"><span class="label label-info">Nivel de luz</span></div>
+                                </div>
+                                <div id = "presDorm" class="circle" style="display: inline-block;"></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">Presencia</span></div>
+                            </div>
+                            <div style="display:inline-block; margin: 1em; text-align: center;">
+                                <div>HABITACIÓN</div>
+                                <div  style="display:block; margin: 1em;">
+                                    <div class="chart" id="chartluzHab" data-percent="#luzHab#"><span id="luzHabchart">#luzHab#</span></div>
+                                    <div class="chart-bottom-heading"><span class="label label-info">Nivel de luz</span></div>
+                                </div>
+                                <div id = "presHab" class="circle on" style="display: inline-block;"></div>
+                                <div class="chart-bottom-heading"><span class="label label-info">Presencia</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bloque información casa -->
+                <div class="informacion">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none;" onclick="legoCasa()"><img src="https://pbs.twimg.com/media/FyVgh43WYAA-2_K?format=webp&name=tiny"></button>
+                        <p class="desactivado" id="infoCasa">
+                            A continuación, se van a presentar los dos modos de funcionamiento de la casa: manual e inteligente. Para ello
+                            se va a proponer un caso real y podrás interactuar con la casa según se vaya indicando en las instrucciones.
+                            No olvides reflexionar sobre los diferentes casos y ¡diviértete cambiando los sensores y actuadores de lugar!
+                        </p>
+                    </div>
+                </div>
+                <!-- Sección casa -->
+                <div class="contenedor block">
+                    <div class="navbar navbar-inner block-header">
+                        <ul class="ul muted">
+                            <li class="li activo"><button type="button" style=" border-style: none; background: none; color:#999;" onclick="ModoManual()">MODO MANUAL</button></li>
+                            <li class="li"><button type="button" style="border-style: none; background: none; color:#999;" onclick="ModoInteligente()">MODO INTELIGENTE</button></li>
+                        </ul>
+                    </div>
+                    <div class="subContainer largo" id="container">
+                        <!-- Sección modo manual -->
+                        <div class="bloque activo">
+                            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <img style="display: inline-block; margin: 3em;" src="https://pbs.twimg.com/media/Fwgvq7lWwAcM4Q8?format=png&name=240x240">
+                                <div style="display: inline-block; max-width: 45em;">
+                                    <p class="letraAzul">¡Este es Marco!</p>
+                                    <p>
+                                        Marco se acaba de comprar esta casa y quiere hacer lo posible por cuidar al planeta con sus pequeñas acciones.
+                                        Ayuda a Marco a entender cómo debe comportarse para consumir menos energía.
+                                    </p>
+                                    <p>
+                                        Marco se levanta todos los días a las 6:30 a.m. para ir a trabajar. Desayuna, se viste, se lava los dientes, ... Y tras una hora, cierra su casa y se va.
+                                        Después de una laaaarga jornada de trabajo, regresa a las 3:00 p.m. para comer y descansar. A las 6:30 se va a su clase diaria de pilates y no vuelve hasta las 9:30 p.m..
+                                        Prepara su cena y se ve una serie hasta que, por fin, se acuesta a las 12.
+                                    </p>
+                                </div>
+                            </div>
+                            <p style="max-width: 65em; margin-left: 2em;">
+                                Durante todo este tiempo, las luces de su casa se han apagado y encendido varias veces. ¿Cómo afecta el comportamiento 
+                                de Marco al consumo de su casa? ¡Pulsa sus diferentes comportamientos y descúbrelo!
+                            </p>
+                            <div style="margin: 2em;">
+                                <button type="button" id="botonRespetuoso" class="btn btn-info" onclick="cambioRespetuoso()">Respetuoso</button>
+                                <button type="button" id="botonDespistado" class="btn btn-primary" onclick="cambioDespistado()">Despistado</button>
+                                <button type="button" id="botonPasota" class="btn btn-info" onclick="cambioPasota()">Pasota</button>
+                            </div>
+                            <div style="max-width: 65em; margin: 2em;">
+                                <div id="infoRespetuoso" class="desactivado" style="margin-bottom: 2em;">
+                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                        <img style="margin-right: 2em;" src="https://pbs.twimg.com/media/Fwgvq6eWwBYE3fe?format=png&name=120x120">
+                                        <p>
+                                            ¡GENIAL! Parece que la mejor forma de cuidar al planeta es siendo muy consciente del uso
+                                            que hacemos de las luces. Marco no necesita más que acordarse cuando sale y entra en las habitaciones
+                                            de apagar las luces. No parace tan difícil, ¿no?
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="infoDespistado" style="margin-bottom: 2em;">
+                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                        <img style="margin-right: 2em;" src="https://pbs.twimg.com/media/FwgvFhfXoAEBdtd?format=png&name=120x120">
+                                        <p>
+                                            Parece que a Marco se le olvida a veces apagar las luces cuando está en otras habitaciones o no
+                                            las apaga cuando está poco tiempo en otra. No le vendría mal una ayuda ...
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="infoPasota" class="desactivado" style="margin-bottom: 2em;">
+                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                        <img style="margin-right: 2em;" src="https://pbs.twimg.com/media/Fwgvq7DWwBENb_L?format=png&name=120x120">
+                                        <p>
+                                            ¡QUÉ HORROR! ¡Marco se deja siempre todas las luces encendidas y le da igual!
+                                            Quizás haya una mejor solución para él si no quiere levantarse a apagar las luces ...
+                                        </p>
+                                    </div>
+                                </div>
+                                <p>Consumo del día (invierno): <span class="letraAzul" id="consumoDiaInvierno">#consumoDiaInvierno# mWh</span></p>
+                                <p>Consumo del día (verano): <span class="letraAzul" id="consumoDiaVerano">#consumoDiaVerano# mWh</span></p>
+                            </div>
+                            <p style="margin-left: 2em;">
+                                Quizás, si probamos con nuestras propias manos, entendamos mejor a Marco ... ¡Interactúa con la casa!
+                            </p>
+                            <div style="display: inline-block; text-align: center; margin: 2em;">
+                                <p>LED DORMITORIO</p>
+                                <button type="button" class="btn btn-success" onclick="LedDormOn()">Encender</button>
+                                <button type="button" class="btn btn-danger" onclick="LedDormOff()">Apagar</button>
+                            </div>
+                            <div style="display: inline-block; text-align: center; margin: 2em;">
+                                <p>LED HABITACIÓN</p>
+                                <button type="button" class="btn btn-success" onclick="LedHabOn()">Encender</button>
+                                <button type="button" class="btn btn-danger" onclick="LedHabOff()">Apagar</button>
+                            </div>
+                        </div>
+                        <!-- Sección modo inteligente -->
+                        <div class="bloque" >
+                            <div style="margin: 2em;">
+                                <div style="display: flex; margin-bottom: 2em; align-items: center; justify-content: center;">
+                                    <img style="margin-right: 2em;" src="https://pbs.twimg.com/media/Fwgvq8AWwAAlyiJ?format=png&name=240x240">
+                                    <div style="display: block;">
+                                        <p>
+                                            Marco ha oído hablar sobre la domótica y cree que podría ayudarle a consumir menos energía en su casa.
+                                            Ha llamado a una empresa para que le diga si, dependiendo de su comportamiento, sería rentable
+                                            instalarlo en su casa. ¿Qué crees tú viendo los datos de abajo? ¿Cúal es la mejor opción para Marco?
+                                        </p>
+                                        <p>Consumo del día (invierno): <span  class="letraAzul">7005.2 mWh</span></p>
+                                        <p>Consumo del día (verano): <span class="letraAzul">7740.4 mWh</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="margin-left: 2em;">
+                                ¿Cómo funcionaría la casa si fuera inteligente? ¡Probemos con nuestras manos!
+                            </p>
+                            <div style="display: flex; margin: 1em; margin-left: 2em;">
+                                <div style="text-align: center; display: block;">
+                                    <p>Ahora mismo es de <span id="diaNoche" class="letraAzul">#diaNoche#</span></p>
+                                    <div>
+                                        <button type="button" class="btn btn-warning" onclick="cambioDia()">DÍA</button>
+                                        <button type="button" class="btn btn-info" onclick="cambioNoche()">NOCHE</button>
+                                    </div>
+                                </div>
+                                <div id = "botonesDia" class = "botonesDia" style="text-align: center; margin-left: 3em;">
+                                    <p>LED DORMITORIO</p>
+                                    <button type="button" class="btn btn-success" onclick="LedDormOn()">Encender</button>
+                                    <button type="button" class="btn btn-danger" onclick="LedDormOff()">Apagar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bloque información final -->
+                <div class="informacion">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button type="button" style="border-style: none; background: none;" onclick="legoFinal()"><img src="https://pbs.twimg.com/media/FyVgh43WYAA-2_K?format=webp&name=tiny"></button>
+                        <p class="desactivado" id="infoFinal">
+                            ¡GENIAL! ¡Lo has probado todo! O no... es hora de modificar el código e investigar como puedes hacer tus propias habitaciones.
+                            Busca en internet, sigue las instrucciones del código y ¡DESATA TU CREATIVIDAD!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="jquery.easy-pie-chart.js"></script>
+    <script src="sweetalert2.min.js"></script>
+    <script src="scripts.js"></script>
+    <!--/Para Cambios en el PIE-->
+    <script>
+        $(function() {
+            // Easy pie charts
+            $('.chart').easyPieChart({
+                easing: 'easeOutBounce',
+                size: 150,
+            });
+        });
+    </script>
+</body>
+</html>
