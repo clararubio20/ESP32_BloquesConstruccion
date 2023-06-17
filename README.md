@@ -20,7 +20,7 @@
 6. Para cargar los archivos de la carpeta data, se debe pulsar la herramienta Upload Filesystem Image de PlatformIO (pulsando su ícono a la izquierda salen todas las opciones del programa).
 7. Se compila el proyecto.
 8. Se conectan los componentes de la siguiente forma:
-! [Circuito de la aplicación](https://raw.githubusercontent.com/clararubio20/ESP32_BloquesConstruccion/main/Im%C3%A1genes%20de%20la%20p%C3%A1gina/circuito.png){width=width height=height}
+![Circuito de la aplicación](https://raw.githubusercontent.com/clararubio20/ESP32_BloquesConstruccion/main/Im%C3%A1genes%20de%20la%20p%C3%A1gina/circuito.png)
 10. Se carga el proyecto en la placa y se abre el puerto serie. Si se han puesto las credenciales de la red WiFi correctamente, debería aparecer la dirección IP del WiFi (número de 12 dígitos separado por puntos).
 11. Se este número y pega en la barra de búsqueda del navegador.
 12. ¡El programa ya está listo para ser usado!
