@@ -1,7 +1,7 @@
 # Casa domótica con ESP32 compatible con LEGO y controlada por servidor web
 
 ## 🧱 Resumen
-En este repositorio se encuentra la aplicación completa para la creación de una casa domótica compatible con piezas LEGO y controlada por la placa ESP32. Este programa está pensado para niños/as de edades en torno a 14 años, supervisados por profesores o tutores que quieran transmitir conocimiento básicos de electrónica y concienciación medioambiental. Se pueden controlar los diferentes componentes por medio de una web que el microcontrolador envía al ordenador. Para ello, se han diseñado e impreso piezas 3D que encajen con cada uno de los componentes que se usen (disponibles en la carpeta de modelos 3D).
+En este repositorio se encuentra la aplicación completa para la creación de una casa domótica compatible con piezas LEGO y controlada por la placa ESP32. Este programa está pensado para niños/as de edades en torno a 14 años, supervisados por profesores o tutores que quieran transmitir conocimiento básicos de electrónica y concienciación medioambiental. Se pueden controlar los diferentes componentes por medio de una web que el microcontrolador envía al ordenador. Para ello, se han diseñado e impreso piezas 3D que encajen con cada uno de los componentes que se usen (disponibles en la carpeta de modelos 3D y en https://www.thingiverse.com/thing:6082576).
 
 ![Página de la aplicación](https://raw.githubusercontent.com/clararubio20/ESP32_BloquesConstruccion/main/Im%C3%A1genes%20de%20la%20p%C3%A1gina/P%C3%A1ginaInicial.png)
 
