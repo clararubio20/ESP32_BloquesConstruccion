@@ -30,7 +30,7 @@ Para la creación de esta página se ha utilizado la plantilla disponible en htt
 12. ¡El programa ya está listo para ser usado!
 
 ## 🧱 Uso
-En el video XXXX se muestra el uso que se le puede dar a la aplicación. ¡Pregunta cualquier duda o interacciona con la comunidad!
+En el video https://youtu.be/yyhtrKlqzr4 se muestra el uso que se le puede dar a la aplicación. ¡Pregunta cualquier duda o interacciona con la comunidad!
 
 
 ## 🧱 Autoría
